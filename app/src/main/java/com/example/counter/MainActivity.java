@@ -1,6 +1,8 @@
 package com.example.counter;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -8,16 +10,31 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    GoogleMap map;
 
     private TextView tcounter;
     private Button bplus, bminus, breset, bmage;
     private ImageView img;
+    private Object CameraUpdateFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync((OnMapReadyCallback) this);
 
         tcounter = findViewById(R.id.texthw);
         bplus = findViewById(R.id.b1);
@@ -58,4 +75,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                                          ;}
                 );}
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+          map = googleMap;
+        LatLng Uttara = new LatLng(23.877260489974038, 90.36764485944892);
+                map.addMarker(new MarkerOptions(). position(Uttara).title("Uttara"));
+    }
 }
