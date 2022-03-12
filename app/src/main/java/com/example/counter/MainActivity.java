@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -23,9 +25,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     GoogleMap map;
 
     private TextView tcounter;
-    private Button bplus, bminus, breset, bmage;
+    private Button bplus, bminus, breset, bmage, bprofile;
     private ImageView img;
-    private Object CameraUpdateFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         bminus = findViewById(R.id.b2);
         breset = findViewById(R.id.b3);
         bmage = findViewById(R.id.b4);
+        bprofile = findViewById(R.id.b5);
         img = findViewById(R.id.iv);
+
+        bprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityMap();
+            }
+        });
     }
+    public void openActivityMap(){
+        Intent intent = new Intent(this, Map.class);
+        startActivity(intent);
+    }
+
     public void Lol(View view){
         int id = view.getId();
         int counter = 0;
@@ -74,12 +88,20 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
                     }
                                          ;}
-                );}
+                );
 
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
           map = googleMap;
-        LatLng Uttara = new LatLng(23.877260489974038, 90.36764485944892);
-                map.addMarker(new MarkerOptions(). position(Uttara).title("Uttara"));
+        LatLng Uttara = new LatLng(23.869, 90.401);
+                map.addMarker(new MarkerOptions(). position(Uttara).title("pp"));
+//        map.animateCamera( CameraUpdateFactory.zoomTo( 1.0f ) );
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Uttara,15));
+        // Zoom in, animating the camera.
+        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+        // Zoom out to zoom level 10, animating with a duration of 2 seconds.
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(15), 2000, null);
+        LatLng centerLatLang = map.getProjection().getVisibleRegion().latLngBounds.getCenter();
     }
 }

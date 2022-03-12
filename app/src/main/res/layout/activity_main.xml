@@ -76,11 +76,16 @@
         android:textColor="#000000"
         android:onClick="Lol"
         app:layout_constraintLeft_toRightOf="@id/iv"
-        app:layout_constraintTop_toBottomOf="@id/iv"
-
-        />
-
-
+        app:layout_constraintTop_toBottomOf="@id/iv" />
+    <Button
+        android:id="@+id/b5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:onClick="Lol"
+        android:textColor="#000000"
+        app:layout_constraintLeft_toRightOf="@id/b4"
+        app:layout_constraintTop_toBottomOf="@id/b4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
